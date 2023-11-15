@@ -1,14 +1,17 @@
-docker build --no-cache -t lumidora-stable-diffusion-webui .
+# Neues image bauen
 
-docker run --gpus all -p 7860:7860 -v lumidora-stable-diffusion-webui-outputs:/app/stable-diffusion-webui/outputs -v lumidora-stable-diffusion-webui-results:/app/stable-diffusion-webui/results lumidora-stable-diffusion-webui
+docker build --no-cache -t lumidora-sd-webui .
+
+# Docker container starten
+
+docker run --gpus all -d -p 7860:7860 -v lumidora-sd-webui-outputs:/app/stable-diffusion-webui/outputs -v
+lumidora-sd-webui-results:/app/stable-diffusion-webui/results lumidora-sd-webui
+
+# Docker container mit shell terminal öffnen
 
 docker exec -it [container id] /bin/bash
 
+# Aktuelle ISSUES
 
-\\wsl.localhost\docker-desktop-data\data\docker\volumes\lumidora-stable-diffusion-webui\_data
-
-
-
-ISSUE SadTalker Extension
-: https://github.com/OpenTalker/SadTalker/issues/682
+https://github.com/OpenTalker/SadTalker/issues/682
 

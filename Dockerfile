@@ -24,15 +24,10 @@ RUN /app/webui.sh -f
 
 WORKDIR /app/stable-diffusion-webui/
 
-COPY ./../../resources/ai/stable-diffusion-webui/models/ /app/stable-diffusion-webui/models
-COPY ./../../resources/ai/stable-diffusion-webui/localizations/ /app/stable-diffusion-webui/localizations
-
 # SadTalker - START
 RUN pip3 install gfpgan
 RUN pip3 install realesrgan
 RUN git clone https://github.com/Winfredy/SadTalker ./extensions/SadTalker
-COPY ./../../resources/ai/SadTalker/checkpoints/ /app/stable-diffusion-webui/extensions/SadTalker/checkpoints/
-COPY ./../../resources/ai/SadTalker/gfpgan/ /app/stable-diffusion-webui/extensions/SadTalker/gfpgan/
 # SadTalker - END
 
 # extensions - START
@@ -46,7 +41,7 @@ RUN pip3 install xformers
 RUN pip3 install triton
 RUN python -m xformers.info output
 
-CMD ./webui.sh -f --listen --api --no-half-vae --enable-insecure-extension-access
+CMD ./webui.sh -f --listen --api --no-half-vae --enable-insecure-extension-access --no-download-sd-model
 
 EXPOSE 7860
 
