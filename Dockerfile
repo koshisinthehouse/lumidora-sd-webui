@@ -1,8 +1,5 @@
-#FROM nvidia/cuda:12.1.0-runtime-ubuntu22.04
 FROM nvidia/cuda:12.3.0-runtime-ubuntu22.04
-
 ENV DEBIAN_FRONTEND=noninteractive
-#FROM debian:11
 
 RUN apt update -y
 RUN apt upgrade -y
@@ -27,15 +24,15 @@ RUN /app/webui.sh -f
 
 WORKDIR /app/stable-diffusion-webui/
 
-# Problem beim laden von einer Festplatte bsp.: D:/resources/stable-diffusion/models !!!!
-COPY ./models /app/stable-diffusion-webui/models
+COPY ./../../resources/ai/stable-diffusion-webui/models/ /app/stable-diffusion-webui/models
+COPY ./../../resources/ai/stable-diffusion-webui/localizations/ /app/stable-diffusion-webui/localizations
 
 # SadTalker - START
 RUN pip3 install gfpgan
 RUN pip3 install realesrgan
 RUN git clone https://github.com/Winfredy/SadTalker ./extensions/SadTalker
-COPY ./SadTalker/checkpoints/ /app/stable-diffusion-webui/extensions/SadTalker/checkpoints/
-COPY ./SadTalker/gfpgan/ /app/stable-diffusion-webui/extensions/SadTalker/gfpgan/
+COPY ./../../resources/ai/SadTalker/checkpoints/ /app/stable-diffusion-webui/extensions/SadTalker/checkpoints/
+COPY ./../../resources/ai/SadTalker/gfpgan/ /app/stable-diffusion-webui/extensions/SadTalker/gfpgan/
 # SadTalker - END
 
 # extensions - START
@@ -49,7 +46,6 @@ RUN pip3 install xformers
 RUN pip3 install triton
 RUN python -m xformers.info output
 
-#--xformers --xformers-flash-attention --no-half-vae --medvram-sdxl --lowvram --upcast-sampling --opt-sdp-attention --opt-sdp-no-mem-attention --opt-sub-quad-attention
 CMD ./webui.sh -f --listen --api --no-half-vae --enable-insecure-extension-access
 
 EXPOSE 7860
