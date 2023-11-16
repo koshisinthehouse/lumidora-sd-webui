@@ -24,10 +24,16 @@ RUN /app/webui.sh -f
 
 WORKDIR /app/stable-diffusion-webui/
 
+COPY ./resources/models /app/stable-diffusion-webui/models
+COPY ./resources/localizations /app/stable-diffusion-webui/localizations
+
 # SadTalker - START
 RUN pip3 install gfpgan
 RUN pip3 install realesrgan
 RUN git clone https://github.com/Winfredy/SadTalker ./extensions/SadTalker
+RUN bash /app/stable-diffusion-webui/extensions/SadTalker/scripts/download_models.sh
+COPY ./resources/extensions/SadTalker/ /app/stable-diffusion-webui/extensions/SadTalker/
+#COPY ./resources/extensions/SadTalker/gfpgan/ /app/stable-diffusion-webui/extensions/SadTalker/gfpgan/
 # SadTalker - END
 
 # extensions - START
@@ -35,6 +41,7 @@ RUN git clone https://github.com/AlUlkesh/stable-diffusion-webui-images-browser 
 RUN git clone -b v2.0 https://github.com/camenduru/sd-civitai-browser ./extensions/sd-civitai-browser
 RUN git clone https://github.com/Mikubill/sd-webui-controlnet ./extensions/sd-webui-controlnet
 RUN git clone https://github.com/camenduru/openpose-editor ./extensions/openpose-editor
+RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui-rembg ./extensions/stable-diffusion-webui-rembg
 # extensions - END
 
 RUN pip3 install xformers
