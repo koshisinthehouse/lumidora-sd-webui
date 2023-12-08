@@ -1,6 +1,11 @@
 # Neues image bauen
 
-docker build --no-cache -t lumidora-sd-webui .
+docker build -t lumidora-sd-webui .
+
+
+# useful build options if something went wrong
+    --no-cache
+    --log-level trace
 
 # Docker container starten
 
