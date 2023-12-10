@@ -20,7 +20,7 @@ WORKDIR /app
 RUN wget -q https://raw.githubusercontent.com/AUTOMATIC1111/stable-diffusion-webui/master/webui.sh
 
 RUN ["chmod", "+x", "/app/webui.sh"]
-RUN /app/webui.sh -f
+RUN /app/webui.sh -f --listen --api --no-half-vae --enable-insecure-extension-access --no-download-sd-model
 
 WORKDIR /app/stable-diffusion-webui/
 
