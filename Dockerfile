@@ -10,6 +10,7 @@ RUN apt install python3-venv -y
 RUN apt install python3-pip -y
 RUN apt install python-is-python3 -y
 RUN apt install ffmpeg -y
+RUN apt install libtcmalloc-minimal4 -y
 
 WORKDIR /app
 
@@ -42,11 +43,10 @@ RUN update-ca-certificates
 # initial setup sd - START
 RUN python3 -m venv venv
 RUN . venv/bin/activate
-RUN python ./launch.py --skip-torch-cuda-test --precision full --no-half --no-download-sd-model --exit
+RUN ./webui.sh -f --skip-torch-cuda-test --precision full --no-half --no-download-sd-model --exit
 # initial setup sd - END
 
-#CMD ["tail", "-f", "/dev/null"]
-CMD . venv/bin/activate && python ./launch.py -f --listen --api --no-half-vae --enable-insecure-extension-access --no-download-sd-model
+CMD . venv/bin/activate && ./webui.sh -f --listen --api --no-half-vae --enable-insecure-extension-access --no-download-sd-model
 EXPOSE 7860
 
 
