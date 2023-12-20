@@ -38,6 +38,8 @@ RUN update-ca-certificates
 RUN python3 -m venv venv
 RUN . venv/bin/activate
 RUN ./webui.sh -f --skip-torch-cuda-test --precision full --no-half --no-download-sd-model --exit
+# fix error: 
+RUN pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchtext==0.14.1 torchaudio==0.13.1 torchdata==0.5.1 --extra-index-url https://download.pytorch.org/whl/cu117
 # initial setup sd - END
 
 CMD . venv/bin/activate && ./webui.sh -f --listen --api --no-half-vae --enable-insecure-extension-access --no-download-sd-model
