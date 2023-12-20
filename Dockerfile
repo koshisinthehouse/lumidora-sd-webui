@@ -20,24 +20,18 @@ RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui
 
 WORKDIR /app/stable-diffusion-webui/
 
-# copy sd resources - START
-COPY ./resources/models /app/stable-diffusion-webui/models
-COPY ./resources/localizations /app/stable-diffusion-webui/localizations
-# copy sd resources - END
-
 # install sd extensions - START
 RUN git clone https://github.com/Winfredy/SadTalker ./extensions/SadTalker
-COPY ./resources/extensions/SadTalker/ /app/stable-diffusion-webui/extensions/SadTalker/
 RUN git clone https://github.com/AlUlkesh/stable-diffusion-webui-images-browser ./extensions/stable-diffusion-webui-images-browser
 RUN git clone -b v2.0 https://github.com/camenduru/sd-civitai-browser ./extensions/sd-civitai-browser
 RUN git clone https://github.com/Mikubill/sd-webui-controlnet ./extensions/sd-webui-controlnet
 RUN git clone https://github.com/camenduru/openpose-editor ./extensions/openpose-editor
 RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui-rembg ./extensions/stable-diffusion-webui-rembg
+RUN git clone https://github.com/numz/sd-wav2lip-uhq ./extensions/sd-wav2lip-uhq
 # install sd extensions - END
 
 
 RUN wget -P /usr/local/share/ca-certificates/cacert.org http://www.cacert.org/certs/root.crt http://www.cacert.org/certs/class3.crt
-
 RUN update-ca-certificates
 
 # initial setup sd - START
