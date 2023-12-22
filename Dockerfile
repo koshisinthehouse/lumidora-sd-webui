@@ -27,19 +27,13 @@ RUN git clone -b v2.0 https://github.com/camenduru/sd-civitai-browser ./extensio
 RUN git clone https://github.com/Mikubill/sd-webui-controlnet ./extensions/sd-webui-controlnet
 RUN git clone https://github.com/camenduru/openpose-editor ./extensions/openpose-editor
 RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui-rembg ./extensions/stable-diffusion-webui-rembg
-RUN git clone https://github.com/numz/sd-wav2lip-uhq ./extensions/sd-wav2lip-uhq
+RUN git clone https://github.com/pharmapsychotic/clip-interrogator-ext ./extensions/clip-interrogator-ext
 # install sd extensions - END
-
-
-RUN wget -P /usr/local/share/ca-certificates/cacert.org http://www.cacert.org/certs/root.crt http://www.cacert.org/certs/class3.crt
-RUN update-ca-certificates
 
 # initial setup sd - START
 RUN python3 -m venv venv
 RUN . venv/bin/activate
 RUN ./webui.sh -f --skip-torch-cuda-test --precision full --no-half --no-download-sd-model --exit
-# fix error: 
-RUN pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchtext==0.14.1 torchaudio==0.13.1 torchdata==0.5.1 --extra-index-url https://download.pytorch.org/whl/cu117
 # initial setup sd - END
 
 CMD . venv/bin/activate && ./webui.sh -f --listen --api --no-half-vae --enable-insecure-extension-access --no-download-sd-model

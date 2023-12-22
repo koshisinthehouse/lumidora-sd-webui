@@ -9,7 +9,7 @@ docker build -t lumidora-sd-webui .
 
 # Docker container starten
 
-docker run --gpus all -d -p 7860:7860 -v lumidora-sd-webui:/app/stable-diffusion-webui/results lumidora-sd-webui
+docker run --gpus all -d -p 7860:7860 -v lumidora-sd-webui-models:/app/stable-diffusion-webui/models -v lumidora-sd-webui-extensions-sadtalker:/app/stable-diffusion-webui/extensions/SadTalker lumidora-sd-webui
 
 # Docker container mit shell terminal öffnen
 
